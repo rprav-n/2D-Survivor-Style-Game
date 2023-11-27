@@ -2,7 +2,7 @@ class_name GameCamera
 
 extends Camera2D
 
-const SMOOTHING: int = 10
+const SMOOTHING: int = 20
 
 var player: Player = null
 var target_position: Vector2 = Vector2.ZERO

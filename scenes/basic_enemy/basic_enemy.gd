@@ -2,7 +2,7 @@ class_name BasicEnemy
 
 extends CharacterBody2D
 
-const MAX_SPEED: int = 75
+const MAX_SPEED: int = 100
 
 var player: Player = null
 @onready var hurtbox: Area2D = $Hurtbox
