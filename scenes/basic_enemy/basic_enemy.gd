@@ -5,9 +5,11 @@ extends CharacterBody2D
 const MAX_SPEED: int = 75
 
 var player: Player = null
+@onready var hurtbox: Area2D = $Hurtbox
 
 
 func _ready() -> void:
+	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 	player = get_tree().get_first_node_in_group("player") as Player
 
 
@@ -25,3 +27,6 @@ func get_direction_to_player() -> Vector2:
 	direction = (player.global_position - global_position).normalized()
 	return direction
 	
+
+func _on_hurtbox_area_entered(_area: Area2D) -> void:
+	queue_free()

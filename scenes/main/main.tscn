@@ -22,3 +22,21 @@ position = Vector2(229, 130)
 
 [node name="BasicEnemy2" parent="." instance=ExtResource("4_41bj2")]
 position = Vector2(96, 217)
+
+[node name="BasicEnemy3" parent="." instance=ExtResource("4_41bj2")]
+position = Vector2(347, 192)
+
+[node name="BasicEnemy4" parent="." instance=ExtResource("4_41bj2")]
+position = Vector2(214, 279)
+
+[node name="BasicEnemy5" parent="." instance=ExtResource("4_41bj2")]
+position = Vector2(377, 120)
+
+[node name="BasicEnemy6" parent="." instance=ExtResource("4_41bj2")]
+position = Vector2(244, 207)
+
+[node name="BasicEnemy7" parent="." instance=ExtResource("4_41bj2")]
+position = Vector2(495, 182)
+
+[node name="BasicEnemy8" parent="." instance=ExtResource("4_41bj2")]
+position = Vector2(362, 269)

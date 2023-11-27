@@ -16,13 +16,27 @@ func _ready() -> void:
 
 
 func spawn_sword_ability() -> void:
+	var first_enemy: Node2D = get_first_enemy()
+	if first_enemy == null:
+		return
+	var sword_ability: SwordAbility = sword_ability_scene.instantiate() as SwordAbility
+	
+	get_tree().current_scene.add_child(sword_ability)
+	sword_ability.global_position = first_enemy.global_position
+	sword_ability.global_position += Vector2.RIGHT.rotated(randf_range(0, TAU)) * 4
+
+	var enemy_direction = first_enemy.global_position - sword_ability.global_position
+	sword_ability.rotation = enemy_direction.angle()
+	
+
+func get_first_enemy() -> Node2D:
 	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy") as Array[Node]
 	enemies = enemies.filter(
 		func(enemy: Node):
 			return enemy.global_position.distance_squared_to(player.global_position) < pow(MAX_RANGE, 2)
 	)
 	if enemies.size() == 0:
-		return
+		return null
 	
 	enemies.sort_custom(
 		func(a: Node2D, b: Node2D):
@@ -33,9 +47,8 @@ func spawn_sword_ability() -> void:
 	
 	var enemy: Node2D = enemies[0] as Node2D
 	
-	var sword_ability: SwordAbility = sword_ability_scene.instantiate() as SwordAbility
-	get_tree().current_scene.add_child(sword_ability)
-	sword_ability.global_position = enemy.global_position
+	return enemy
+
 
 func _on_timer_timeout() -> void:
 	if !is_instance_valid(player):
