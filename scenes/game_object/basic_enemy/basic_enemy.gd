@@ -6,6 +6,7 @@ const MAX_SPEED: int = 100
 
 var player: Player = null
 @onready var hurtbox: Area2D = $Hurtbox
+@onready var health_component: HealthComponent = $HealthComponent
 
 
 func _ready() -> void:
@@ -29,4 +30,4 @@ func get_direction_to_player() -> Vector2:
 	
 
 func _on_hurtbox_area_entered(_area: Area2D) -> void:
-	queue_free()
+	health_component.damage(5)
