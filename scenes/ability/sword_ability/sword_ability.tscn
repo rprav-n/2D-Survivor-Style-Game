@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cofskmaontl41"]
+[gd_scene load_steps=8 format=3 uid="uid://cofskmaontl41"]
 
 [ext_resource type="Script" path="res://scenes/ability/sword_ability/sword_ability.gd" id="1_ku12n"]
 [ext_resource type="Texture2D" uid="uid://d1kis6nn4v3i7" path="res://scenes/ability/sword.png" id="2_poepy"]
+[ext_resource type="PackedScene" uid="uid://d07wx23cw65l6" path="res://scenes/component/hitbox_component.tscn" id="3_2g0y3"]
 
 [sub_resource type="Animation" id="Animation_ptg75"]
 length = 0.001
@@ -32,7 +33,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/2/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -72,7 +73,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/2/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -102,7 +103,7 @@ _data = {
 "swing": SubResource("Animation_pwkdl")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p55q8"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqe7k"]
 size = Vector2(30, 30)
 
 [node name="SwordAbility" type="Node2D"]
@@ -118,10 +119,7 @@ libraries = {
 texture = ExtResource("2_poepy")
 offset = Vector2(0, -4)
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(15, 0)
-collision_layer = 8
-collision_mask = 0
+[node name="HitboxComponent" parent="." instance=ExtResource("3_2g0y3")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_p55q8")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_pqe7k")
