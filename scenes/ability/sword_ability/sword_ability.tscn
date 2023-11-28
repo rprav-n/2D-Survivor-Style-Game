@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cofskmaontl41"]
 
-[ext_resource type="Texture2D" uid="uid://d1kis6nn4v3i7" path="res://sword.png" id="1_1tarh"]
 [ext_resource type="Script" path="res://scenes/ability/sword_ability/sword_ability.gd" id="1_ku12n"]
+[ext_resource type="Texture2D" uid="uid://d1kis6nn4v3i7" path="res://scenes/ability/sword.png" id="2_poepy"]
 
 [sub_resource type="Animation" id="Animation_ptg75"]
 length = 0.001
@@ -115,7 +115,7 @@ libraries = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_1tarh")
+texture = ExtResource("2_poepy")
 offset = Vector2(0, -4)
 
 [node name="Area2D" type="Area2D" parent="."]
