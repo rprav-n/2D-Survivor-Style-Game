@@ -6,13 +6,16 @@ const MAX_RANGE: int = 150
 
 @export var sword_ability_scene: PackedScene
 var damage: int = 5
+var base_wait_time: float
 @onready var timer: Timer = $Timer
 
 var player: Player = null
 
 func _ready() -> void:
+	base_wait_time = timer.wait_time
 	player = get_tree().get_first_node_in_group("player") as Player
 	timer.timeout.connect(_on_timer_timeout)
+	GameEvents.ability_upgrade_added.connect(_on_ability_upgrade_added)
 
 
 func spawn_sword_ability() -> void:
@@ -57,3 +60,13 @@ func _on_timer_timeout() -> void:
 		return
 	
 	spawn_sword_ability()
+
+
+func _on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> void:
+	if upgrade.id != "sword_rate":
+		return
+	
+	var percent_redcution: float = current_upgrades["sword_rate"]["quantity"] * 0.1
+	timer.wait_time = base_wait_time * (1 - percent_redcution)
+	timer.start()
+	
