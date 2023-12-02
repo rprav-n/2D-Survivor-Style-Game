@@ -10,8 +10,11 @@ var base_wait_time: float
 @onready var timer: Timer = $Timer
 
 var player: Player = null
+var foreground_layer: Node2D = null
+
 
 func _ready() -> void:
+	foreground_layer = get_tree().get_first_node_in_group("foreground_layer")
 	base_wait_time = timer.wait_time
 	player = get_tree().get_first_node_in_group("player") as Player
 	timer.timeout.connect(_on_timer_timeout)
@@ -20,12 +23,12 @@ func _ready() -> void:
 
 func spawn_sword_ability() -> void:
 	var first_enemy: Node2D = get_first_enemy()
-	if first_enemy == null:
+	if first_enemy == null || !is_instance_valid(foreground_layer):
 		return
 		
 	var sword_ability: SwordAbility = sword_ability_scene.instantiate() as SwordAbility
 	
-	get_tree().current_scene.add_child(sword_ability)
+	foreground_layer.add_child(sword_ability)
 	sword_ability.hitbox_component.damage = damage
 	sword_ability.global_position = first_enemy.global_position
 	sword_ability.global_position += Vector2.RIGHT.rotated(randf_range(0, TAU)) * 4
