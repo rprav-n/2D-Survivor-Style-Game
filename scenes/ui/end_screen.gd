@@ -1,14 +1,21 @@
-class_name VictoryScreen
+class_name EndScreen
 
 extends CanvasLayer
 @onready var restart_button: Button = %RestartButton
 @onready var quit_button: Button = %QuitButton
+@onready var title_label: Label = %TitleLabel
+@onready var description_label: Label = %DescriptionLabel
 
 
 func _ready() -> void:
 	get_tree().paused = true
 	restart_button.pressed.connect(_on_restart_button_pressed)
 	quit_button.pressed.connect(_on_quit_button_pressed)
+
+
+func set_defeat() -> void:
+	title_label.text = "Defeat"
+	description_label.text = "You lost!"
 
 
 func _on_restart_button_pressed() -> void:
