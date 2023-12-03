@@ -4,11 +4,14 @@ extends Camera2D
 
 const SMOOTHING: int = 20
 
+@export var background_color: Color
+
 var player: Player = null
 var target_position: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	RenderingServer.set_default_clear_color(background_color)
 	make_current()
 	player = get_tree().get_first_node_in_group("player") as Player
 
