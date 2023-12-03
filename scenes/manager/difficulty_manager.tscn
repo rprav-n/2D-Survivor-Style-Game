@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn2a21ho8ys1o"]
+
+[ext_resource type="Script" path="res://scenes/manager/difficulty_manager.gd" id="1_0y7bf"]
+
+[node name="DifficultyManager" type="Node"]
+script = ExtResource("1_0y7bf")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
