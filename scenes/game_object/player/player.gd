@@ -8,6 +8,7 @@ const ACCELERATION_SMOOTHING: int = 20
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var damager_interval_timer: Timer = $DamagerIntervalTimer
 @onready var health_bar: ProgressBar = $HealthBar
+@onready var abilities: Node = $Abilities
 
 var no_of_colliding_bodies: int = 0
 
@@ -16,7 +17,9 @@ func _ready() -> void:
 	collision_area.body_exited.connect(_on_body_exited)
 	damager_interval_timer.timeout.connect(_on_damager_interval_timer_timeout)
 	health_component.health_changed.connect(_on_health_changed)
+	GameEvents.ability_upgrade_added.connect(_on_ability_upgrade_added)
 	update_health_display()
+
 
 func _process(delta: float) -> void:
 	var movement_vector: Vector2 = get_movement_vector()
@@ -61,3 +64,10 @@ func _on_damager_interval_timer_timeout() -> void:
 
 func _on_health_changed() -> void:
 	update_health_display()
+
+
+func _on_ability_upgrade_added(ability_upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> void:
+	if not ability_upgrade is Ability:
+		return
+	var ability: Ability = ability_upgrade as Ability
+	abilities.add_child(ability.ability_controller_scene.instantiate())
