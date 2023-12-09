@@ -4,11 +4,13 @@ extends CharacterBody2D
 
 const MAX_SPEED: int = 150
 const ACCELERATION_SMOOTHING: int = 20
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var collision_area: Area2D = $CollisionArea
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var damager_interval_timer: Timer = $DamagerIntervalTimer
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var abilities: Node = $Abilities
+@onready var visuals: Node2D = $Visuals
 
 var no_of_colliding_bodies: int = 0
 
@@ -29,6 +31,15 @@ func _process(delta: float) -> void:
 	velocity = velocity.lerp(target_velocity, 1.0 - exp(-ACCELERATION_SMOOTHING * delta))
 	
 	move_and_slide()
+	
+	if movement_vector.x != 0 or movement_vector.y != 0:
+		animation_player.play("walk")
+	else:
+		animation_player.play("RESET")
+	
+	var move_sign: int = sign(movement_vector.x)
+	if move_sign != 0:
+		visuals.scale.x = move_sign
 
 
 func check_deal_damage() -> void:
