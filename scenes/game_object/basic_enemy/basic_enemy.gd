@@ -6,6 +6,7 @@ const MAX_SPEED: int = 40
 
 var player: Player = null
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var visuals: Node2D = $Visuals
 
 
 func _ready() -> void:
@@ -16,6 +17,10 @@ func _process(_delta: float) -> void:
 	var direction: Vector2 = get_direction_to_player()
 	velocity = direction * MAX_SPEED
 	move_and_slide()
+	
+	var move_sign: int = sign(direction.x)
+	if move_sign != 0:
+		visuals.scale.x = move_sign
 
 
 func get_direction_to_player() -> Vector2:
