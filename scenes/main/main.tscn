@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://besaysrit7jyp" path="res://scenes/ui/end_screen.tscn" id="2_7qc4n"]
 [ext_resource type="PackedScene" uid="uid://d0b0mwoh54h36" path="res://scenes/ui/experience_bar.tscn" id="2_jq386"]
 [ext_resource type="PackedScene" uid="uid://cx83jwigqdshr" path="res://scenes/game_object/game_camera/game_camera.tscn" id="3_1qs7w"]
-[ext_resource type="PackedScene" uid="uid://cy7aq1g2rf3el" path="res://scenes/game_object/basic_enemy/basic_enemy.tscn" id="4_41bj2"]
 [ext_resource type="PackedScene" uid="uid://d33lxiqkxpb8a" path="res://scenes/manager/arena_time_manager.tscn" id="4_b12we"]
 [ext_resource type="PackedScene" uid="uid://djq7m3yeh6875" path="res://scenes/manager/expirence_manager.tscn" id="5_abnvv"]
+[ext_resource type="PackedScene" uid="uid://cwtvxn8lrhugl" path="res://scenes/game_object/wizard_enemy/wizard_enemy.tscn" id="6_fjdov"]
 [ext_resource type="PackedScene" uid="uid://bndktvrsep014" path="res://scenes/manager/upgrade_manager.tscn" id="7_xwijr"]
 [ext_resource type="PackedScene" uid="uid://bn2a21ho8ys1o" path="res://scenes/manager/difficulty_manager.tscn" id="10_j5x7e"]
 
@@ -25,7 +25,7 @@ arena_time_manager = NodePath("../ArenaTimeManager")
 experience_manager = NodePath("../ExpirenceManager")
 
 [node name="EnemyManager" parent="." node_paths=PackedStringArray("difficulty_manager") instance=ExtResource("1_a637r")]
-basic_enemy_scene = ExtResource("4_41bj2")
+basic_enemy_scene = ExtResource("6_fjdov")
 difficulty_manager = NodePath("../DifficultyManager")
 
 [node name="ArenaTimeManager" parent="." instance=ExtResource("4_b12we")]

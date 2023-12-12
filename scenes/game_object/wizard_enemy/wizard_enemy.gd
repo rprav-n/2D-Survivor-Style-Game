@@ -1,9 +1,7 @@
-class_name BasicEnemy
-
 extends CharacterBody2D
 
-@onready var visuals: Node2D = $Visuals
 @onready var velocity_component: VelocityComponent = $VelocityComponent
+@onready var visuals: Node2D = $Visuals
 
 
 func _process(_delta: float) -> void:
