@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwtvxn8lrhugl"]
+[gd_scene load_steps=13 format=3 uid="uid://cwtvxn8lrhugl"]
 
 [ext_resource type="Script" path="res://scenes/game_object/wizard_enemy/wizard_enemy.gd" id="1_6lfhx"]
 [ext_resource type="Texture2D" uid="uid://ko1g5f1f8u5h" path="res://scenes/game_object/wizard_enemy/wizard_enemy.png" id="1_wedx5"]
@@ -7,6 +7,86 @@
 [ext_resource type="PackedScene" uid="uid://j1uu6n3axp18" path="res://scenes/component/velocity_component.tscn" id="2_yb3e1"]
 [ext_resource type="PackedScene" uid="uid://d14g575us5x83" path="res://scenes/component/vial_drop_component.tscn" id="3_px1ox"]
 [ext_resource type="PackedScene" uid="uid://cvvl2y8uisi1h" path="res://scenes/component/hurtbox_component.tscn" id="4_3tpec"]
+
+[sub_resource type="Animation" id="Animation_onaic"]
+resource_name = "default"
+length = 0.4
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1.7, 3, 1),
+"update": 0,
+"values": [0.0, -0.174533, 0.174533]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 0.8), Vector2(0.9, 1.1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.05, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"set_is_moving"
+}, {
+"args": [false],
+"method": &"set_is_moving"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_lfh5c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ne5er"]
+_data = {
+"RESET": SubResource("Animation_lfh5c"),
+"default": SubResource("Animation_onaic")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tx386"]
 
@@ -18,6 +98,12 @@ collision_layer = 5
 collision_mask = 4
 script = ExtResource("1_6lfhx")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+libraries = {
+"": SubResource("AnimationLibrary_ne5er")
+}
+
 [node name="HealthComponent" parent="." instance=ExtResource("2_semvb")]
 max_health = 20.0
 
@@ -26,7 +112,7 @@ health_component = NodePath("../HealthComponent")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_yb3e1")]
 max_speed = 60
-acceleration = 2.0
+acceleration = 20.0
 
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("2_p36xb")]
 health_component = NodePath("../HealthComponent")
@@ -39,6 +125,7 @@ texture = ExtResource("1_wedx5")
 offset = Vector2(0, -8)
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_3tpec")]
+visible = false
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
@@ -46,5 +133,6 @@ position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_tx386")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_rasmp")
